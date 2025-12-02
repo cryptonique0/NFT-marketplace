@@ -33,9 +33,12 @@ export default function WalletModal() {
       <div className="relative w-full max-w-md mx-4 bg-background border border-border rounded-2xl shadow-2xl overflow-hidden">
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-border">
-          <h2 className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-            Connect Wallet
-          </h2>
+          <div>
+            <h2 className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              Connect Wallet
+            </h2>
+            <p className="text-xs text-muted-foreground mt-1">Choose your preferred wallet</p>
+          </div>
           <button
             onClick={closeModal}
             className="p-2 hover:bg-accent/10 rounded-lg transition-colors"
