@@ -32,10 +32,7 @@ export default function NFTDetailPage() {
     }
 
     try {
-      await purchaseNFT.mutateAsync({
-        nftId: nftIdBigInt,
-        buyer: ownerId,
-      });
+      await purchaseNFT.mutateAsync(nftIdBigInt.toString());
       toast.success('NFT purchased successfully!');
       navigate({ to: '/my-nfts' });
     } catch (error) {
@@ -146,7 +143,7 @@ export default function NFTDetailPage() {
                 </Badge>
               </div>
 
-              {nft.forSale && nft.price && (
+              {nft.forSale && nft.price > 0n && (
                 <div className="flex items-center justify-between pt-2 border-t">
                   <span className="text-sm font-medium">Price</span>
                   <Badge className="text-lg px-4 py-2 font-mono">

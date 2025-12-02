@@ -48,7 +48,7 @@ export function useGetNFT(id: bigint | null) {
     queryKey: ['nfts', 'detail', id?.toString()],
     queryFn: async () => {
       if (!actor || id === null) return null;
-      return actor.getNFT(id);
+      return actor.getNFT(id.toString());
     },
     enabled: !!actor && !isFetching && id !== null,
   });
@@ -89,9 +89,9 @@ export function usePurchaseNFT() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async ({ nftId, buyer }: { nftId: bigint; buyer: string }) => {
+    mutationFn: async (nftId: string) => {
       if (!actor) throw new Error('Actor not initialized');
-      return actor.purchaseNFT(nftId, buyer);
+      return actor.purchaseNFT(nftId);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['nfts'] });

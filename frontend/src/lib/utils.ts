@@ -24,7 +24,6 @@ export function getChainName(chainId: number): string {
     42220: 'Celo',
     1284: 'Moonbeam',
     1313161554: 'Aurora',
-    1666600000: 'Harmony',
     25: 'Cronos',
     324: 'zkSync',
     1101: 'Polygon zkEVM',

@@ -4,7 +4,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/componen
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
@@ -17,7 +17,7 @@ export default function MyNFTsPage() {
   const { data: nfts, isLoading } = useGetNFTsByOwner(ownerId);
   const setSaleStatus = useSetSaleStatus();
   const navigate = useNavigate();
-  const [selectedNFT, setSelectedNFT] = useState<bigint | null>(null);
+  const [selectedNFT, setSelectedNFT] = useState<string | null>(null);
   const [price, setPrice] = useState('');
   const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -32,7 +32,7 @@ export default function MyNFTsPage() {
 
     try {
       await setSaleStatus.mutateAsync({
-        id: selectedNFT,
+        id: BigInt(selectedNFT),
         forSale: true,
         price: BigInt(priceValue),
       });
@@ -46,10 +46,10 @@ export default function MyNFTsPage() {
     }
   };
 
-  const handleUnlist = async (nftId: bigint) => {
+  const handleUnlist = async (nftId: string) => {
     try {
       await setSaleStatus.mutateAsync({
-        id: nftId,
+        id: BigInt(nftId),
         forSale: false,
         price: undefined,
       });
@@ -119,7 +119,7 @@ export default function MyNFTsPage() {
                 </p>
               </CardHeader>
               <CardContent>
-                {nft.forSale && nft.price && (
+                {nft.forSale && nft.price > 0n && (
                   <div className="flex items-center justify-between">
                     <span className="text-xs text-muted-foreground">Listed Price</span>
                     <Badge variant="secondary" className="font-mono">
@@ -151,7 +151,7 @@ export default function MyNFTsPage() {
                       Unlist
                     </Button>
                   ) : (
-                    <Dialog open={dialogOpen && selectedNFT === nft.id} onOpenChange={(open) => {
+                    <Dialog open={dialogOpen && selectedNFT === nft.id} onOpenChange={(open: boolean) => {
                       setDialogOpen(open);
                       if (open) {
                         setSelectedNFT(nft.id);
@@ -160,13 +160,18 @@ export default function MyNFTsPage() {
                         setPrice('');
                       }
                     }}>
-                      <DialogTrigger asChild>
-                        <Button size="sm" className="flex-1 gap-2">
-                          <Tag className="w-4 h-4" />
-                          List
-                        </Button>
-                      </DialogTrigger>
-                      <DialogContent>
+                      <Button size="sm" className="flex-1 gap-2" onClick={() => {
+                        setDialogOpen(true);
+                        setSelectedNFT(nft.id);
+                      }}>
+                        <Tag className="w-4 h-4" />
+                        List
+                      </Button>
+                      <DialogContent onClose={() => {
+                        setDialogOpen(false);
+                        setSelectedNFT(null);
+                        setPrice('');
+                      }}>
                         <DialogHeader>
                           <DialogTitle>List NFT for Sale</DialogTitle>
                           <DialogDescription>
@@ -181,7 +186,7 @@ export default function MyNFTsPage() {
                               type="number"
                               placeholder="Enter price"
                               value={price}
-                              onChange={(e) => setPrice(e.target.value)}
+                              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPrice(e.target.value)}
                               min="1"
                             />
                           </div>

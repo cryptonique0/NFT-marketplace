@@ -10,7 +10,6 @@ import { Progress } from '@/components/ui/progress';
 import { toast } from 'sonner';
 import { ExternalBlob } from '../backend';
 import { Upload, Sparkles, Image as ImageIcon } from 'lucide-react';
-import { getOwnerId } from '../lib/owner';
 
 export default function MintPage() {
   const navigate = useNavigate();
@@ -59,18 +58,15 @@ export default function MintPage() {
     try {
       const arrayBuffer = await imageFile.arrayBuffer();
       const uint8Array = new Uint8Array(arrayBuffer);
-      const blob = ExternalBlob.fromBytes(uint8Array).withUploadProgress((percentage) => {
+      const blob = ExternalBlob.fromBytes(uint8Array).withUploadProgress((percentage: number) => {
         setUploadProgress(percentage);
       });
-
-      const ownerId = getOwnerId();
 
       await mintNFT.mutateAsync({
         name: name.trim(),
         description: description.trim(),
         metadata: metadata.trim() || undefined,
-        image: blob,
-        owner: ownerId,
+        image: blob.toBytes(),
       });
 
       toast.success('NFT minted successfully!');
@@ -142,7 +138,7 @@ export default function MintPage() {
                 id="name"
                 placeholder="Enter NFT name"
                 value={name}
-                onChange={(e) => setName(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
                 disabled={mintNFT.isPending}
               />
             </div>
@@ -153,7 +149,7 @@ export default function MintPage() {
                 id="description"
                 placeholder="Describe your NFT"
                 value={description}
-                onChange={(e) => setDescription(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setDescription(e.target.value)}
                 disabled={mintNFT.isPending}
                 rows={4}
               />
@@ -165,7 +161,7 @@ export default function MintPage() {
                 id="metadata"
                 placeholder="Add any additional information or attributes"
                 value={metadata}
-                onChange={(e) => setMetadata(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setMetadata(e.target.value)}
                 disabled={mintNFT.isPending}
                 rows={3}
               />

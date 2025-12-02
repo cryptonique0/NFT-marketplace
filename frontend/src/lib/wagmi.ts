@@ -1,9 +1,9 @@
 import { createConfig, http } from 'wagmi';
-import {
-  mainnet,
-  polygon,
-  arbitrum,
-  optimism,
+import { 
+  mainnet, 
+  polygon, 
+  arbitrum, 
+  optimism, 
   base,
   bsc,
   avalanche,
@@ -13,11 +13,13 @@ import {
   moonbeam,
   aurora,
   cronos,
+  zkSync,
+  polygonZkEvm,
   linea,
   scroll,
-  mantle,
+  mantle
 } from 'wagmi/chains';
-import { walletConnect, injected, coinbaseWallet } from '@wagmi/connectors';
+import { walletConnect, injected, coinbaseWallet } from 'wagmi/connectors';
 
 // WalletConnect Project ID - Get one at https://cloud.walletconnect.com
 const projectId = import.meta.env.VITE_WALLETCONNECT_PROJECT_ID || 'YOUR_PROJECT_ID';
@@ -37,9 +39,11 @@ export const chains = [
   moonbeam,
   aurora,
   cronos,
+  zkSync,
+  polygonZkEvm,
   linea,
   scroll,
-  mantle,
+  mantle
 ] as const;
 
 // Create wagmi config
@@ -81,6 +85,8 @@ export const config = createConfig({
     [moonbeam.id]: http(),
     [aurora.id]: http(),
     [cronos.id]: http(),
+    [zkSync.id]: http(),
+    [polygonZkEvm.id]: http(),
     [linea.id]: http(),
     [scroll.id]: http(),
     [mantle.id]: http(),
