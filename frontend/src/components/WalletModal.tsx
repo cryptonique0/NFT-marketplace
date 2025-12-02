@@ -59,7 +59,7 @@ export default function WalletModal() {
               onClick={() => connect(connector.id)}
               disabled={isConnecting}
               variant="outline"
-              className="w-full justify-start gap-3 h-auto py-4 hover:bg-accent/10 hover:border-primary transition-all"
+              className="w-full justify-start gap-3 h-auto py-4 hover:bg-accent/10 hover:border-primary hover:scale-[1.02] transition-all"
             >
               <span className="text-2xl">{getConnectorIcon(connector.name)}</span>
               <div className="flex flex-col items-start">
