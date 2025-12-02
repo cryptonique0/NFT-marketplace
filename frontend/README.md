@@ -1,6 +1,21 @@
 # NFT Marketplace with WalletConnect Integration
 
-A multi-chain NFT marketplace supporting all EVM-compatible blockchains through WalletConnect.
+A modern, multi-chain NFT marketplace supporting all EVM-compatible blockchains through WalletConnect v2.
+
+## 🚀 Quick Start
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+```
+
+The app will be available at `http://localhost:3000`
 
 ## Features
 
