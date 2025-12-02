@@ -186,10 +186,10 @@ export default function Layout() {
             </p>
             <div className="flex items-center gap-2 text-xs text-muted-foreground">
               <span className="px-2 py-1 rounded-md bg-accent/20 text-accent-foreground">
-                Multi-Chain Support
+                ⚡ Multi-Chain
               </span>
               <span className="px-2 py-1 rounded-md bg-accent/20 text-accent-foreground">
-                All EVM Compatible
+                🔒 Secure
               </span>
             </div>
           </div>
