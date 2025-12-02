@@ -30,9 +30,9 @@ export default function Layout() {
           <div className="flex items-center justify-between">
             <button
               onClick={() => navigate({ to: '/' })}
-              className="flex items-center gap-3 group"
+              className="flex items-center gap-3 group transition-transform hover:scale-105"
             >
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all">
                 <Palette className="w-6 h-6 text-primary-foreground" />
               </div>
               <div className="flex flex-col items-start">
