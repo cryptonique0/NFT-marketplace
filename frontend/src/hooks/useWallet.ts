@@ -26,6 +26,8 @@ export function useWallet() {
       
       if (connector) {
         await connect({ connector });
+        // Store last used connector for auto-reconnect
+        localStorage.setItem('lastConnector', connector.id);
       }
     } catch (error) {
       console.error('Failed to connect wallet:', error);
